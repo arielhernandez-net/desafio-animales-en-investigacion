@@ -13,7 +13,6 @@ import { Leon, Lobo, Oso, Serpiente, Aguila } from "./animales.js";
 	}
 })();
 
-
 const animalSelect = (data) => {
   const button = document.getElementById("btnRegistrar");
 
