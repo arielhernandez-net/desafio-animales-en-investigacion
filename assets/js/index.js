@@ -54,8 +54,7 @@ const animalSelect = (data) => {
           animalInset(animalArray);
           animalList.selectedIndex = 0;
           edad.selectedIndex = 0;
-          comentarios.value = "";
-          preview.innerHTML = `<img src="assets/imgs/lion.svg" style="background-position: center top; background-size: contain; background-repeat: no-repeat;" height="200px">`;
+          comentarios.value = "";  
       }
   });
 };
@@ -85,7 +84,7 @@ const animalPreview = (data) => {
 	animal.addEventListener("change", (e) => {
 		const findImage = animales.find((animal) => animal.name === e.target.value).imagen;
 		document.getElementById("preview").setAttribute("class", "");
-    preview.innerHTML = `<img src="assets/imgs/${findImage}" alt="${e.target.value}" class="img-fluid" style=" max-width: 100%;">`;
+    preview.innerHTML = `<img src="assets/imgs/${findImage}" alt="${e.target.value}" class="img-fluid" style=" max-width: 50%;">`;
 
 	});
 };
@@ -97,14 +96,14 @@ const animalInset = (animalArray) => {
   
     animalArray.forEach((animal, index) => {
       const cardDiv = document.createElement("div");
-      cardDiv.classList.add("card", "mb-3");
+      cardDiv.classList.add("card", "mb-3", "bg-secondary");
       cardDiv.style.width = "200px"; 
   
       const cardContent = `
-        <img src="${animal.img}" class="card-img-top" alt="${animal.nombre}" data-bs-toggle="modal" data-bs-target="#exampleModal${index}">
-        <div class="card-body">
+        <img src="${animal.img}" class="card-img-top img-thumbnail bg-secondary" alt="${animal.nombre}" data-bs-toggle="modal" data-bs-target="#exampleModal${index}">
+        <div class="card-body bg-secondary">
           <div class="audio-container" data-audio="${animal.nombre}">
-            <img class="img-fluid w-25" src="assets/imgs/audio.svg" alt="Reproducir audio" style="filter: invert(100%);">
+            <img class="img-fluid" src="assets/imgs/audio.svg" alt="Reproducir audio" style="max-width: 15%;">
             <audio src="${animal.sonido}" id="${animal.nombre}Audio" preload="auto"></audio>
           </div>
         </div>`;
@@ -115,16 +114,16 @@ const animalInset = (animalArray) => {
       const modalContent = `
         <div class="modal fade" id="exampleModal${index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered w-25">
-            <div class="modal-content">
+            <div class="modal-content bg-dark">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">${animal._nombre}</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5 text-white " id="exampleModalLabel">${animal._nombre}</h1>
+                <button type="button" class="btn-close bg-white " data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <img src="${animal._img}" alt="${animal._nombre}" class="img-fluid" style="max-width: 100%;">
-                <p class="mt-3 text-center">${animal._edad}</p>
-                <h6 class="mt-3 text-center fw-bold">Comentarios</h6>
-                <p class="mt-3 text-center">${animal._comentarios}</p>
+                <p class="mt-3 text-center text-white ">${animal._edad}</p>
+                <h6 class="mt-3 text-center fw-bold text-white ">Comentarios</h6>
+                <p class="mt-3 text-center text-white ">${animal._comentarios}</p>
               </div>
             </div>
           </div>
