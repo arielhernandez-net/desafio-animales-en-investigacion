@@ -9,7 +9,7 @@ import { Leon, Lobo, Oso, Serpiente, Aguila } from "./animales.js";
 	} catch (error) {
 		console.log(error);
 	} finally {
-    console.log("Completa")
+    console.log("Carga Completa")
 	}
 })();
 
@@ -91,42 +91,57 @@ const animalPreview = (data) => {
 };
 
 const animalInset = (animalArray) => {
-  const card = document.getElementById("animalesInsert");
-  card.innerHTML = "";
-
-  animalArray.forEach((animal) => {
+    const card = document.getElementById("animalesInsert");
+    const modal = document.getElementById("insertModal");
+    card.innerHTML = "";
+  
+    animalArray.forEach((animal, index) => {
       const cardDiv = document.createElement("div");
       cardDiv.classList.add("card", "mb-3");
       cardDiv.style.width = "200px"; 
-
+  
       const cardContent = `
-          <img src="${animal.img}" class="card-img-top" alt="${animal.nombre}">
-          <div class="card-body">
-           
-              <div class="audio-container" data-audio="${animal.nombre}">
-                  <img class="img-fluid w-25" src="assets/imgs/audio.svg" alt="Reproducir audio" style="filter: invert(100%);">
-                  <audio src="${animal.sonido}" id="${animal.nombre}Audio" preload="auto"></audio>
-              </div>
+        <img src="${animal.img}" class="card-img-top" alt="${animal.nombre}" data-bs-toggle="modal" data-bs-target="#exampleModal${index}">
+        <div class="card-body">
+          <div class="audio-container" data-audio="${animal.nombre}">
+            <img class="img-fluid w-25" src="assets/imgs/audio.svg" alt="Reproducir audio" style="filter: invert(100%);">
+            <audio src="${animal.sonido}" id="${animal.nombre}Audio" preload="auto"></audio>
           </div>
-      `;
-
+        </div>`;
+  
       cardDiv.innerHTML = cardContent;
       card.appendChild(cardDiv);
-      console.log(animalArray);
       
-      cardDiv.addEventListener("click", () => {
-
-      });
-  });
-
-  card.addEventListener("click", (event) => {
-    const target = event.target;
-    if (target.tagName === "IMG" && target.parentElement.classList.contains("audio-container")) {
+      const modalContent = `
+        <div class="modal fade" id="exampleModal${index}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered w-25">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">${animal._nombre}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <img src="${animal._img}" alt="${animal._nombre}" class="img-fluid" style="max-width: 100%;">
+                <p class="mt-3 text-center">${animal._edad}</p>
+                <h6 class="mt-3 text-center fw-bold">Comentarios</h6>
+                <p class="mt-3 text-center">${animal._comentarios}</p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+      
+      modal.insertAdjacentHTML('beforeend', modalContent);
+    });
+  
+    card.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target.tagName === "IMG" && target.parentElement.classList.contains("audio-container")) {
         const audioId = `${target.parentElement.dataset.audio}Audio`;
         const audioElement = document.getElementById(audioId);
         if (audioElement) {
-            audioElement.play();
+          audioElement.play();
         }
-    }
-});
-};
+      }
+    });
+  };
+  
