@@ -22,7 +22,6 @@ const animalSelect = (data) => {
       const animalList = document.getElementById("animal");
       const edad = document.getElementById("edad");
       const comentarios = document.getElementById("comentarios");
-      const preview = document.getElementById("preview");
 
       const animalName = animalList.value;
       const animalData = data.animales.find((animal) => animal.name === animalName);
@@ -51,10 +50,12 @@ const animalSelect = (data) => {
 
       if (animalName !== "Seleccione un animal" && edad.value !== "Seleccione un rango de años" && comentarios.value !== "" && instanceImage) {
           animalArray.push(newAnimal);
-          animalInset(animalArray);
+          animalInsert(animalArray);
           animalList.selectedIndex = 0;
           edad.selectedIndex = 0;
           comentarios.value = "";  
+      }else {
+          alert("Por favor, complete todos los campos");
       }
   });
 };
@@ -89,7 +90,7 @@ const animalPreview = (data) => {
 	});
 };
 
-const animalInset = (animalArray) => {
+const animalInsert = (animalArray) => {
     const card = document.getElementById("animalesInsert");
     const modal = document.getElementById("insertModal");
     card.innerHTML = "";
